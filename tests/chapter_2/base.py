@@ -5,7 +5,7 @@ import tensorflow as tf
 class BaseTest(tf.test.TestCase):
 
     def setUp(self):
-        pass
+        print("Let's Start with TensorFlow!")
 
     def tearDown(self):
-        pass
+        print("Bye TensorFlow")

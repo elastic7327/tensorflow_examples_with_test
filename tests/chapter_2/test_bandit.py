@@ -46,7 +46,7 @@ class TestSmokeTest(BaseTest):
         update = optimize.minimize(loss)
 
         #  에이전트를 학습시킬 총 에피소드의 수를 설정한다.
-        total_episodes = 1000
+        total_episodes = 10000
 
         # 밴딧 손잡이에 대한 점수판을 0으로 설정
         total_reward = np.zeros(num_arms)
