@@ -6,7 +6,7 @@ import tensorflow.contrib.slim as slim
 import numpy as np
 
 
-class Contextual_bandit():
+class ContextualBandit(object):
 
     # 메모리를 아끼기 위해서 __slots__ 사용
     __slots__ = ["state", "bandits", "num_bandits", "num_actions"]
@@ -30,7 +30,7 @@ class Contextual_bandit():
 class TestContextBanditTest(BaseTest):
 
     def test_class_init_test(self):
-        res = Contextual_bandit()
+        res = ContextualBandit()
 
     def test_context_bandit(self):
         pass
