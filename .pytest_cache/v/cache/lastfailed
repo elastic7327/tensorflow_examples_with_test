@@ -1,0 +1,3 @@
+{
+  "tests/chapter_2/test_smoke.py::TestSmokeTest::test_smoke_test": true
+}
