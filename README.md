@@ -1,6 +1,6 @@
 # tensorflow_examples_with_test
 
-SetUp
+SetUp TensorFlow on OSX!
 ```
 
 for python3.x
