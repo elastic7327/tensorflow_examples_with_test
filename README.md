@@ -24,7 +24,12 @@ pip3 install --upgrade tensorflow
 
 QuickStart
 ```
-./pytest.sh
+
+# 스무스하게 인스톨
+pip3 install -r requirements/development.txt
+
+# 적절하게 테스트
+pytest -s -v # test all the cases...
 
 ```
 
