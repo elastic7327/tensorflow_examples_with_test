@@ -9,7 +9,7 @@ import numpy as np
 class ContextualBandit(object):
 
     # 메모리를 아끼기 위해서 __slots__ 사용
-    # __slots__ = ["state", "bandits", "num_bandits", "num_actions"]
+    __slots__ = ["state", "bandits", "num_bandits", "num_actions"]
 
     def __init__(self):
         self.state = 0
@@ -44,7 +44,7 @@ class ContextualBandit(object):
 class Agent():
 
     # 메모리를 아낍니다.
-    # __slots__ = ["state_in", "state_in_OH", "output", "chosen_action", "reward_holder", "action_holder", "responsible_weight", "loss", "optimizer", "update"]
+    __slots__ = ["state_in", "state_in_OH", "output", "chosen_action", "reward_holder", "action_holder", "responsible_weight", "loss", "optimizer", "update"]
 
     def __init__(self, lr, s_size, a_size):
         # 네트워크의 피드포워드 부분, 에이전트는 상태를 받아서 액션을 출력한다.
