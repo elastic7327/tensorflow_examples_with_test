@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from tests.base import BaseTest
 
 class TestSmokeTest(BaseTest):

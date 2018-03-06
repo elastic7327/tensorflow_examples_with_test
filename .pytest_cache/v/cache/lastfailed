@@ -1,1 +1,6 @@
-{}
+{
+  "tests/chapter_2/test_bandit.py": true,
+  "tests/chapter_2/test_smoke.py": true,
+  "tests/chapter_3/test_context_bandit.py::BaseTest": true,
+  "tests/chapter_3/test_context_bandit.py::TestContextBanditTest": true
+}
