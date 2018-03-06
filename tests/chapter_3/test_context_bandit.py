@@ -9,7 +9,7 @@ import numpy as np
 class ContextualBandit(object):
 
     # 메모리를 아끼기 위해서 __slots__ 사용
-    __slots__ = ["state", "bandits", "num_bandits", "num_actions"]
+    # __slots__ = ["state", "bandits", "num_bandits", "num_actions"]
 
     def __init__(self):
         self.state = 0
@@ -30,7 +30,7 @@ class ContextualBandit(object):
 
     def pull_arm(self, action):
         # 랜덤한 수를 얻는다.
-        bandit = self.bandits[self.state.action]
+        bandit = self.bandits[self.state, action]
         result = np.random.randn(1)
 
         if result > bandit:
@@ -43,7 +43,8 @@ class ContextualBandit(object):
 
 class Agent():
 
-    __slots__ = ["state_in", "state_in_OH", "output", "chosen_action", "reward_holder", "action_holder", "responsible_weight", "loss", "optimizer", "update"]
+    # 메모리를 아낍니다.
+    # __slots__ = ["state_in", "state_in_OH", "output", "chosen_action", "reward_holder", "action_holder", "responsible_weight", "loss", "optimizer", "update"]
 
     def __init__(self, lr, s_size, a_size):
         # 네트워크의 피드포워드 부분, 에이전트는 상태를 받아서 액션을 출력한다.
@@ -82,5 +83,52 @@ class TestContextBanditTest(BaseTest):
         cBandit = ContextualBandit()
 
         # 에이전트를 로드한다.
-
         myAgent = Agent(lr=0.001, s_size=cBandit.num_bandits, a_size=cBandit.num_actions)
+
+        # 네트워크 내부를 들여다보기 위해 평가할 가중치
+        weight = tf.trainable_variables()[0]
+
+        # 에이전트를 학습시킬 전체 에피소드 수 설정
+        total_episodes = 10000
+
+        # 밴딧에 대한 점수판을 0으로 설정
+        total_reward = np.zeros([cBandit.num_bandits, cBandit.num_actions])
+
+        # 랜덤한 액션을 취할 가능성 설정
+        e = 0.1
+
+        init = tf.global_variables_initializer()
+
+        # 텐서플로 그래프 론칭
+        with tf.Session() as sess:
+            sess.run(init)
+            i = 0
+            while i < total_episodes:
+                #  환경으로부터 상태 가져오기
+                s = cBandit.get_bandit()
+                # 네트워크로부터 랜덤한 액션 또는 하나의 액션을 선택한다.
+                if np.random.rand(1) < e:
+                    action = np.random.randint(cBandit.num_actions)
+                else:
+                    action = sess.run(myAgent.chosen_action, feed_dict={myAgent.state_in: [s]})
+                # 주어진 밴딧에 대해 액션을 취한 데 대한 보상을 얻는다.
+                reward = cBandit.pull_arm(action)
+
+                feed_dict = {myAgent.reward_holder: [reward], myAgent.action_holder: [action], myAgent.state_in: [s]}
+
+                _, ww = sess.run([myAgent.update, weight], feed_dict)
+
+                # 보상의 총계 업데이트
+                total_reward[s, action] += reward
+
+                if i % 500 == 0:
+                    print("Mean reward for each of the " + str(cBandit.num_bandits) + "bandits:" + str(np.mean(total_reward, axis=1)))
+                i += 1
+
+        for a in range(cBandit.num_bandits):
+            print("The agent thinks action" + str(np.argmax(ww[a] + 1)) + " for bandit" + str(a+1) + " is the most promising...")
+
+            if np.argmax(ww[a]) == np.argmin(cBandit.bandits[a]):
+                print("... and it was right!")
+            else:
+                print("...and it was wrong!")
