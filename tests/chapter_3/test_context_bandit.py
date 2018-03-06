@@ -26,6 +26,20 @@ class ContextualBandit(object):
     def get_bandit(self):
         #  각각의 에피소드에 대해 랜덤한 상태를 반환
         self.state = np.random.randint(0, len(self.bandits))
+        return self.state
+
+    def pull_arm(self, action):
+        # 랜덤한 수를 얻는다.
+        bandit = self.bandits[self.state.action]
+        result = np.random.randn(1)
+
+        if result > bandit:
+            # 양 의 보상을 반환한다.
+            return 1
+        else:
+            # 음의 보상을 반환한다.
+            return -1
+
 
 class TestContextBanditTest(BaseTest):
 
