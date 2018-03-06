@@ -1,5 +1,4 @@
-from tests.chapter_2.base import BaseTest
-
+from tests.base import BaseTest
 
 class TestSmokeTest(BaseTest):
 
