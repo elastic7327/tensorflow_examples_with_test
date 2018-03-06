@@ -29,7 +29,7 @@ QuickStart
 pip3 install -r requirements/development.txt
 
 # 적절하게 테스트
-pytest -s -v # test all the cases...
+pytest -s -v tests/ # test all the cases...
 
 ```
 
