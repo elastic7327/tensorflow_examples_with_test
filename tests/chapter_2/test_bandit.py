@@ -77,3 +77,13 @@ class TestSmokeTest(BaseTest):
 
                 # 보상 총계 업데이트
                 total_reward[action] += reward
+
+                if i % 50 == 0:
+                    print("Running reward for the" + str(num_arms) + "arms of the bandit:" + str(total_reward))
+                i += 1
+
+        print("\n The agent thinks arm" + str(np.argmax(ww) + 1) + " is the most promising....")
+        if np.argmax(ww) == np.argmax(-np.array(bandit_arms)):
+            print("...and it was right")
+        else:
+            print("...and is was wrong")
