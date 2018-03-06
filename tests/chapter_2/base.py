@@ -1,6 +1,8 @@
 import unittest
 
-class BaseTest(unittest.TestCase):
+import tensorflow as tf
+
+class BaseTest(tf.test.TestCase):
 
     def setUp(self):
         pass

@@ -40,3 +40,40 @@ class TestSmokeTest(BaseTest):
         reward_holder = tf.placeholder(shape=[1], dtype=tf.float32)
         action_holder = tf.placeholder(shape=[1], dtype=tf.int32)
 
+        responsible_output = tf.slice(output, action_holder, [1])
+        loss = -(tf.log(responsible_output) * reward_holder)
+        optimize = tf.train.AdamOptimizer(learning_rate=1e-3)
+        update = optimize.minimize(loss)
+
+        #  에이전트를 학습시킬 총 에피소드의 수를 설정한다.
+        total_episodes = 1000
+
+        # 밴딧 손잡이에 대한 점수판을 0으로 설정
+        total_reward = np.zeros(num_arms)
+
+        init = tf.global_variables_initializer()
+        # 텐서플로 그래프를 론칭한다.
+
+        with tf.Session() as sess:
+            sess.run(init)
+            i = 0
+
+            while i < total_episodes:
+                # 볼포츠만 분포에 따라 액션 선택
+                actions = sess.run(output)
+                a = np.random.choice(actions, p=actions)
+
+                action = np.argmax(actions==a)
+
+                # 밴딧 손잡이 중 하나를 선택함으로써 보상을 받는다.
+                reward = pullBandit(bandit_arms[action])
+
+                _, resp, ww = sess.run(
+                        [update, responsible_output, weights],
+                        feed_dict={
+                            reward_holder: [reward],
+                            action_holder: [action]}
+                        )
+
+                # 보상 총계 업데이트
+                total_reward[action] += reward

@@ -1,1 +1,3 @@
-{}
+{
+  "tests/chapter_2/test_bandit.py::TestSmokeTest::test_import_tendorflows": true
+}
