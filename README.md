@@ -1,7 +1,10 @@
 # tensorflow_examples_with_test
 
-SetUp TensorFlow on OSX!
+SetUp
 ```
+
+# 사실 친절하게 여기 모두 다 나와있다.
+# 공홈 참조 https://www.tensorflow.org/install/install_mac
 
 for python3.x
 
