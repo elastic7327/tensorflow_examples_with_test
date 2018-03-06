@@ -21,3 +21,9 @@ pip3 install --upgrade tensorflow
 
 
 ```
+
+QuickStart
+```
+./pytest.sh
+
+```
