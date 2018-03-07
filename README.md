@@ -33,6 +33,15 @@ pytest -s -v tests/ # test all the cases...
 
 ```
 
+
+### Chapter 1 -> how to use numpy 
+```
+# 사실 넘파이(numpy)에 대해서는 언급이 없는데, 본인이 기억이 가물가물해서..테스트코드 몇자 넣어봅니다.
+# 테스트를 하는 사람중에서 아마 제가 제일 머리가 나쁜듯하네요 :D
+
+
+```
+
 ### Chapter 2 -> Multi_Armd_Bandit
 
 ```
