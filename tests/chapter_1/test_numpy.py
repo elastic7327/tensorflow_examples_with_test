@@ -13,4 +13,7 @@ class TestNumpyTest(BaseTest):
 
         assert arr.shape[1] == 5 # 내부에 5개의 아이템
 
+        print(np.random.randn(1))
+
+        # assert np.random.randn(1) in range(1000)
 
